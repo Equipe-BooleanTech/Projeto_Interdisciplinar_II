@@ -1,0 +1,55 @@
+.welcome-heading {
+    font-size: 36px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.welcome-message {
+    font-size: 18px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.dashboard {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ultimosPedidos {
+    margin: 20px 0;
+    background-color: #FFF0EB;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-radius: 10px;
+    
+}
+
+.table {
+    overflow: scroll;
+    max-width: 90%;
+}
+
+.ultimosPedidos__header {
+    background-color: #FFD6C8;
+    border-radius: 5px;
+}
+
+.ultimosPedidos__body {
+    background-color: #FFE5DD;
+    width: 95%;
+}
+
+@media screen and (max-width: 1024px) {
+    .ultimosPedidos {
+        width: 95%;
+    }
+    .table {
+        overflow: scroll;
+        max-width: 90%;
+    }
+}
