@@ -14,7 +14,7 @@ function Servicos() {
         <div className="row text-center box-servicos">
           <div className="col-lg-4 box-servico">
             <div className="card">
-              <div className="card-header">
+              <div className="card-header servicos__header">
                 <h1>Doces e Salgados</h1>
               </div>
               <div className="card-body">
@@ -28,7 +28,7 @@ function Servicos() {
 
           <div className="col-lg-4 box-servico">
             <div className="card">
-              <div className="card-header">
+              <div className="card-header servicos__header">
                 <h1>Carrinhos Gourmet</h1>
               </div>
               <div className="card-body">
@@ -50,7 +50,7 @@ function Servicos() {
 
           <div className="col-lg-4 box-servico">
             <div className="card">
-              <div className="card-header">
+              <div className="card-header servicos__header">
                 <h1>Serviços de Buffet Completo</h1>
               </div>
               <div className="card-body">

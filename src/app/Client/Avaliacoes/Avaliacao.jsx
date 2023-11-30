@@ -23,7 +23,7 @@ const formTemplate = {
 function Avaliacao() {
   const [userId, setUserId] = useState(null);
   const [pedidos, setPedidos] = useState([]);
-  const [selectPedidos, setSelectPedidos] = useState(null);
+  const [selectPedidos, setSelectPedidos] = useState("");
   const [avaliacao, setAvaliacao] = useState("");
   const [nota, setNota] = useState(1);
   const [data, setData] = useState(formTemplate);
@@ -123,8 +123,8 @@ function Avaliacao() {
       <Navbar />
       <div className="container-formulario">
         <div className="header">
-          <h2>Deixe sua avaliação</h2>
-          <p>
+          <h1 className="title">Deixe sua avaliação</h1>
+          <p className="center">
             Ficamos felizes com sua compra, utilize o formulário abaixo para
             avaliar o produto
           </p>

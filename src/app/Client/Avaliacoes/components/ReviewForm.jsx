@@ -78,6 +78,7 @@ const ReviewForm = ({
             <p>{selectPedidos.itens}</p>
             <label htmlFor="comment">Comentário:</label>
             <textarea
+              className="comment"
               name="comment"
               id="comment"
               placeholder="conte como foi sua experiência com o produto..."
