@@ -12,76 +12,40 @@ const ReviewForm = ({
   onAvaliacaoChange,
   onNotaChange,
 }) => {
+  const renderStars = () => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <label key={i} className="radio-container">
+          <input
+            type="radio"
+            value={i}
+            name="review"
+            checked={nota === i}
+            onChange={() => onNotaChange(i)}
+            required
+          />
+          <AiOutlineStar />
+        </label>
+      );
+    }
+    return stars;
+  };
+
   return (
     <>
       {selectPedidos && (
         <div className="review-form">
-          <div className="form-control score-container">
-            <label className="radio-container">
-              <input
-                type="radio"
-                value="1"
-                name="review"
-                checked={data.review === 1}
-                onChange={(e) => onNotaChange(Number(e.target.value))}
-                required
-              />
-              <AiOutlineStar />
-            </label>
-            <label className="radio-container">
-              <input
-                type="radio"
-                value="2"
-                name="review"
-                checked={data.review === 2}
-                onChange={(e) => onNotaChange(Number(e.target.value))}
-                required
-              />
-              <AiOutlineStar />
-            </label>
-            <label className="radio-container">
-              <input
-                type="radio"
-                value="3"
-                name="review"
-                checked={data.review === 3}
-                onChange={(e) => onNotaChange(Number(e.target.value))}
-                required
-              />
-              <AiOutlineStar />
-            </label>
-            <label className="radio-container">
-              <input
-                type="radio"
-                value="4"
-                name="review"
-                checked={data.review === 4}
-                onChange={(e) => onNotaChange(Number(e.target.value))}
-                required
-              />
-              <AiOutlineStar />
-            </label>
-            <label className="radio-container">
-              <input
-                type="radio"
-                value="5"
-                name="review"
-                checked={data.review === 5}
-                onChange={(e) => onNotaChange(Number(e.target.value))}
-                required
-              />
-              <AiOutlineStar />
-            </label>
-          </div>
+          <div className="form-control score-container">{renderStars()}</div>
           <div className="form-control">
             <h2>Detalhes do Pedido:</h2>
-            <p>{selectPedidos.itens}</p>
+            <p>{selectPedidos && selectPedidos.itensQuantidades}</p>
             <label htmlFor="comment">Comentário:</label>
             <textarea
-              className="comment"
+              className="textarea"
               name="comment"
               id="comment"
-              placeholder="conte como foi sua experiência com o produto..."
+              placeholder="Conte como foi sua experiência com o pedido..."
               required
               value={avaliacao}
               onChange={(e) => onAvaliacaoChange(e.target.value)}

@@ -80,7 +80,6 @@ export default function PedidoForm() {
     concluido: false,
     emAberto: true,
     emAndamento: false,
-    cancelado: false,
     dataPedido: new Date().toDateString(),
   });
 
@@ -213,7 +212,6 @@ export default function PedidoForm() {
       concluido: data.concluido,
       emAberto: data.emAberto,
       emAndamento: data.emAndamento,
-      cancelado: data.cancelado, // Novo campo
       dataPedido: formattedDate,
       numero: data.numero,
     };

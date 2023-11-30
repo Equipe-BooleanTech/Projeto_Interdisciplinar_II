@@ -64,7 +64,8 @@ function Avaliacao() {
 
   const handleSelecionarPedido = (pedidoId) => {
     const pedido = pedidos.find((p) => p.id === pedidoId);
-    setSelectPedidos(pedido);
+    console.log("Pedido selecionado:", pedido);
+    setSelectPedidos(pedido.itensQuantidades);
   };
 
   const handleEnviarAvaliacao = () => {
@@ -117,6 +118,23 @@ function Avaliacao() {
     isFirstStep,
   } = useForm(formComponents);
 
+  const handleNextStep = (nextStep, e) => {
+    e.preventDefault();
+    switch (nextStep) {
+      case 1:
+        break;
+      case 2:
+        handleSelecionarPedido();
+        break;
+      case 3:
+        updateFieldHandler("avaliacao", avaliacao);
+        updateFieldHandler("nota", nota);
+        break;
+      default:
+        break;
+    }
+    changeStep(nextStep);
+  };
   return (
     <div>
       {" "}
@@ -124,16 +142,16 @@ function Avaliacao() {
       <div className="container-formulario">
         <div className="header">
           <h1 className="title">Deixe sua avaliação</h1>
-          <p className="center">
+          <p className="form__instructions">
             Ficamos felizes com sua compra, utilize o formulário abaixo para
-            avaliar o produto
+            avaliar o produto!
           </p>
         </div>
         <div className="form-containers">
           <Steps currentStep={currentStep} />
           <form
             className="formularios"
-            onSubmit={(e) => changeStep(currentStep + 1, e)}
+            onSubmit={(e) => handleNextStep(currentStep + 1, e)}
           >
             <div className="inputs-container">{currentComponent}</div>
             <div className="actions">

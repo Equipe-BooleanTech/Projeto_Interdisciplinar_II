@@ -6,7 +6,7 @@
 }
 
 .card-frame {
-    left: 10%;
+    left: 0;
     height: 25%;
     background-color: #FFF0EB;
 }
@@ -44,16 +44,9 @@
     margin-bottom: 5%;
 }
 
-
-@media (max-width: 1005px){
-    .intro-cards{
-        justify-content: space-evenly;
-        width: 100%;
-    }
-}
-
-@media (max-width: 526px){
+@media (max-width: 575px){
     .intro-cards {
+        width: 100%;
         display: block;
     }
 }

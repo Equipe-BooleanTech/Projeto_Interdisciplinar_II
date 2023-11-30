@@ -5,18 +5,20 @@ const UserForm = ({ data, updateFieldHandler, pedidos, onSelectPedido }) => {
     <div>
       <div className="form-control">
         {pedidos.length > 0 ? (
-          <div className="col-sm-3 m mx-auto p-2">
+          <div className="col-sm-3 m mx-auto p-2 form-control">
+            <p className="form__instructions">
+              Escolha o seu pedido pelo número correspondente!
+            </p>
             <select
               className="form-select"
               aria-label="Default select example"
               value={data.selectedPedidoId}
-              onSelect={(e) => onSelectPedido(e.target.value)}
               onChange={(e) => onSelectPedido(e.target.value)}
             >
-              <option value="">Escolha um pedido</option>
+              <option value="">Escolha um pedido...</option>
               {pedidos.map((pedido) => (
-                <option key={pedido.id} value={pedido.id}>
-                  {pedido.id}
+                <option key={pedido.idPedido} value={pedido.idPedido}>
+                  {pedido.numero}
                 </option>
               ))}
             </select>

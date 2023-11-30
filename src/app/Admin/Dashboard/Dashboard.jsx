@@ -13,8 +13,11 @@ export const Dashboard = () => {
       <div className="container">
         <div style={{ marginTop: "5%" }}>
           <div className="row text-center container col-3 col-md-6 col-sm-12">
-            <div className="col-3 col-md-6 col-sm-12 intro-cards">
-              <div className="col-sm-2 mb-2" style={{ marginRight: "2%" }}>
+            <div
+              className="col-3 col-md-6 col-sm-12 intro-cards"
+              style={{ justifyContent: "space-evenly" }}
+            >
+              <div className="col-sm-2 mb-2">
                 <div className="card status">
                   <div className="card-body">
                     <h5 className="card-title">20</h5>
@@ -23,7 +26,7 @@ export const Dashboard = () => {
                 </div>
               </div>
 
-              <div className="col-sm-2 mb-2" style={{ marginRight: "2%" }}>
+              <div className="col-sm-2 mb-2">
                 <div className="card status">
                   <div className="card-body">
                     <h5 className="card-title">27</h5>
@@ -32,7 +35,7 @@ export const Dashboard = () => {
                 </div>
               </div>
 
-              <div className="col-sm-2 mb-2" style={{ marginRight: "2%" }}>
+              <div className="col-sm-2 mb-2">
                 <div className="card status">
                   <div className="card-body">
                     <h5 className="card-title">2</h5>
@@ -41,7 +44,7 @@ export const Dashboard = () => {
                 </div>
               </div>
 
-              <div className="col-sm-2 mb-2" style={{ marginRight: "2%" }}>
+              <div className="col-sm-2 mb-2">
                 <div className="card status">
                   <div className="card-body">
                     <h5 className="card-title">0</h5>
@@ -70,7 +73,7 @@ export const Dashboard = () => {
                       <Tabela className="graficos" />
                     </CustomIframe>
                   </div>
-                  <div className="card-body">
+                  <div className="card-header">
                     <h5 className="card-title">Gráfico de vendas</h5>
                   </div>
                 </div>
@@ -79,8 +82,8 @@ export const Dashboard = () => {
 
             <div className="row row-cols-1 row-cols-md-1 g-1">
               <div
-                className="card card-frame text-center row row-cols-1"
-                style={{ marginTop: "5%", position: "relative", left: "6%" }}
+                className="card card-frame text-center px-0"
+                style={{ marginTop: "5%", position: "relative", left: "auto" }}
               >
                 <div className="card-header" style={{ margin: "0" }}>
                   Chats

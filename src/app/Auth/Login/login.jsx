@@ -80,10 +80,10 @@ function Login() {
             </div>
           ) : null}
           {sucesso === "S" && userID === "xlSBLZr64BODo1EkiD78aZQvQL72" ? (
-            <Redirect to="/app/admin/home" />
+            <Redirect to="/" />
           ) : null}
           {sucesso === "S" && userID !== adminUserID ? (
-            <Redirect to="/app/meu-perfil" />
+            <Redirect to="/" />
           ) : null}
 
           <div className="login-links mt-5">

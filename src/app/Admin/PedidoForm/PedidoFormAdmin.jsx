@@ -97,7 +97,6 @@ export default function PedidoFormAdmin() {
   const [data, setData] = useState({
     ...formTemplate,
     idCliente: formTemplate.idCliente,
-    numero: 0,
     itens: [],
     quantidades: [],
     avaliacao: "",
@@ -244,7 +243,12 @@ export default function PedidoFormAdmin() {
 
   const sendDataToFirebase = async (data) => {
     try {
-      const formatted = formattedData(data);
+      const numeroPedido = await setNumeroPedido();
+      const updatedData = {
+        ...data,
+        numero: numeroPedido,
+      };
+      const formatted = formattedData(updatedData);
       const docRef = db
         .collection("usuarios")
         .doc(data.idCliente)

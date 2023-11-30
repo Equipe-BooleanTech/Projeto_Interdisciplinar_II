@@ -1,38 +1,58 @@
 import React from "react";
+
 import { AiOutlineStar } from "react-icons/ai";
-import "./Thanks.css";
+import "./ReviewForm.css";
 
-const emojiData = {
-  1: <AiOutlineStar />,
-  2: <AiOutlineStar />,
-  3: <AiOutlineStar />,
-  4: <AiOutlineStar />,
-  5: <AiOutlineStar />,
-};
-
-const Thanks = ({ data, selectPedidos, avaliacao, nota }) => {
+const ReviewForm = ({
+  data,
+  updateFieldHandler,
+  selectPedidos,
+  avaliacao,
+  nota,
+  onAvaliacaoChange,
+  onNotaChange,
+}) => {
+  const renderStars = () => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <label key={i} className="radio-container">
+          <input
+            type="radio"
+            value={i}
+            name="review"
+            checked={data.review === i}
+            onChange={() => onNotaChange(i)}
+            required
+          />
+          <AiOutlineStar />
+        </label>
+      );
+    }
+    return stars;
+  };
   return (
     <>
       {selectPedidos && (
-        <div className="thanks-container">
-          <h2>Falta Pouco...</h2>
-          <p>A sua Opinião é muito importante para nós</p>
-          <p>Para concluir sua avaliação clique no botão de Enviar abaixo</p>
-          <h3>
-            Aqui esta o resumo da sua avaliação do Pedido :{selectPedidos.id}
-          </h3>
-          <p className="review-data">
-            <span>Satisfação com o produto:</span>
-            {emojiData[nota]}
-          </p>
-          <p className="review-data">
-            <span>Comentário:</span>
-            {avaliacao}
-          </p>
+        <div className="review-form">
+          <div className="form-control score-container">{renderStars()}</div>
+          <div className="form-control">
+            <h2>Detalhes do Pedido:</h2>
+            <p>{selectPedidos.itensQuantidades}</p>
+            <label htmlFor="comment">Comentário:</label>
+            <textarea
+              name="comment"
+              id="comment"
+              placeholder="conte como foi sua experiência com o produto..."
+              required
+              value={avaliacao}
+              onChange={(e) => onAvaliacaoChange(e.target.value)}
+            ></textarea>
+          </div>
         </div>
       )}
     </>
   );
 };
 
-export default Thanks;
+export default ReviewForm;
