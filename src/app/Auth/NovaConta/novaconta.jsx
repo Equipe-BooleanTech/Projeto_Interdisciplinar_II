@@ -15,14 +15,19 @@ function NovaConta() {
   const [cep, setCep] = useState("");
   const [numero, setNumero] = useState("");
   const [senha, setSenha] = useState("");
-  const [mensagem, setMensagem] = useState("");
+  const [erros, setErros] = useState([]);
   const [sucesso, setSucesso] = useState("");
 
   function cadastrarUsuario() {
-    setMensagem("");
+    setErros([]);
 
     if (!nomecompleto || !email || !telefone || !cep || !numero || !senha) {
-      setMensagem("Informe todos os campos!");
+      setErros(["Informe todos os campos!"]);
+      return;
+    }
+
+    if (senha.length < 6) {
+      setErros(["A senha deve ter pelo menos 6 caracteres"]);
       return;
     }
 
@@ -55,43 +60,26 @@ function NovaConta() {
             })
             .then(() => {
               const pedidos = usuarios.doc(idUsuario).collection("pedidos");
-              pedidos
-                .add({
-                  cliente: nomecompleto,
-                  emAberto: false,
-                  emAndamento: false,
-                  concluido: true,
-                  itens: "",
-                  dataPedido: new Date(),
-                  numero: 0,
-                })
-                .catch((e) => {
-                  console.error("Algo deu errado: ", e);
-                });
+              pedidos.add({
+                cliente: nomecompleto,
+                emAberto: false,
+                emAndamento: false,
+                concluido: false,
+                itens: "",
+                dataPedido: new Date(),
+                numero: 0,
+              });
             })
             .catch((error) => {
               setSucesso("N");
-              if (
-                error.message === "Password should be at least 6 characters"
-              ) {
-                setMensagem("A senha deve ter pelo menos 6 caracteres");
-              } else if (
-                error.message === "The email address is badly formatted."
-              ) {
-                setMensagem("O email não é válido");
-              } else if (
-                error.message ===
-                "The email address is already in use by another account."
-              ) {
-                setMensagem("Esse email já está em uso por outra conta");
+              if (error.code === "auth/weak-password") {
+                setErros(["A senha deve ter pelo menos 6 caracteres"]);
+              } else if (error.code === "auth/email-already-in-use") {
+                setErros(["Esse email já está em uso por outra conta"]);
               } else {
-                setMensagem("Erro ao criar conta: " + error.message);
+                setErros(["Erro ao criar conta: " + error.message]);
               }
             });
-        })
-        .catch((error) => {
-          setSucesso("N");
-          // ...
         });
     });
   }
@@ -114,7 +102,7 @@ function NovaConta() {
               type="text"
               className="form-control"
               id="floatingInput"
-              placeholder="E-mail"
+              placeholder="Nome Completo"
             />
           </div>
           <div className="form-floating">
@@ -176,12 +164,17 @@ function NovaConta() {
             Criar conta
           </button>
 
-          {mensagem.length > 0 ? (
+          {erros.length > 0 && (
             <div className="alert alert-danger mt-2" role="alert">
-              {mensagem}
+              {erros.map((erro, index) => (
+                <p key={index} className="mb-0">
+                  {erro}
+                </p>
+              ))}
             </div>
-          ) : null}
-          {sucesso === "S" ? <Redirect to="/app/meu-perfil" /> : null}
+          )}
+
+          {sucesso === "S" && <Redirect to="/app/meu-perfil" />}
 
           <div className="login-links mt-5">
             <Link to="/app/login" className="mx-3">

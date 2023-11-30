@@ -43,3 +43,17 @@
     align-items: center;
     margin-bottom: 5%;
 }
+
+
+@media (max-width: 1005px){
+    .intro-cards{
+        justify-content: space-evenly;
+        width: 100%;
+    }
+}
+
+@media (max-width: 526px){
+    .intro-cards {
+        display: block;
+    }
+}

@@ -4,7 +4,7 @@ import "firebase/firestore";
 import Navbar from "../../Components/Navbar/navbar";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { useParams, useHistory } from "react-router-dom";
-
+import "../PedidoForm/PedidoForm.css";
 function Avaliacoes() {
   const { id } = useParams();
   const history = useHistory();
@@ -93,7 +93,7 @@ function Avaliacoes() {
   };
 
   return (
-    <div className="container-fluid">
+    <>
       <Navbar />
       <div className="Row">
         <h1 className="text-center">Avalie Seus Pedidos</h1>
@@ -165,7 +165,7 @@ function Avaliacoes() {
           ter compartilhado seus pensamentos conosco.
         </SweetAlert>
       )}
-    </div>
+    </>
   );
 }
 

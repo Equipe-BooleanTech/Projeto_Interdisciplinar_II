@@ -2,7 +2,6 @@ import React from "react";
 import { AiFillContainer, AiOutlineStar } from "react-icons/ai";
 import { FiSend } from "react-icons/fi";
 import "../../PedidoForm/PedidoForm.css";
-
 const Steps = ({ currentStep }) => {
   return (
     <div className="steps">

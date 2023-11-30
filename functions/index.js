@@ -1,19 +1,31 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+import functions from "firebase-functions";
+import admin from "firebase-admin";
+import nodemailer from "nodemailer";
 
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+admin.initializeApp();
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "projetointerdisciplinar2.fatec@gmail.com",
+    pass: "priv roct vqfp wlin",
+  },
+});
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+export const enviarEmail = functions.firestore
+
+    .onCreate(async (snapshot, context) => {
+    const data = snapshot.data();
+
+    const emailOptions = {
+    from: "projetointerdisciplinar2.fatec@gmail.com",
+        to: data.email,
+        subject: 'Ateliê do Chocolate',
+        text: 'Conteúdo do E-mail',
+        };
+
+        await transporter.sendMail(emailOptions);
+
+        console.log('E-mail enviado com sucesso.');
+        return null;
+    });

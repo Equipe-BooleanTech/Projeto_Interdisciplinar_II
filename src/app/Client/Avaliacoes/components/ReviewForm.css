@@ -21,6 +21,9 @@
 .radio-container{
     text-align: center;
     position: relative;
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
 }
 
 .radio-container input{
@@ -34,5 +37,10 @@
     font-weight: 300;
     font-size: .7rem;
     margin-top: .4rem;
-    
+}
+
+.review-form {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
 }

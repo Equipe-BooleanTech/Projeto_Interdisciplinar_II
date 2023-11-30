@@ -80,6 +80,18 @@
 
 .itens {
     vertical-align: middle;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.itens__list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .textarea {

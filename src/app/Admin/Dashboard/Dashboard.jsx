@@ -14,7 +14,7 @@ export const Dashboard = () => {
         <div style={{ marginTop: "5%" }}>
           <div className="row text-center container col-3 col-md-6 col-sm-12">
             <div className="col-3 col-md-6 col-sm-12 intro-cards">
-              <div className="col-2 mb-2" style={{ marginRight: "2%" }}>
+              <div className="col-sm-2 mb-2" style={{ marginRight: "2%" }}>
                 <div className="card status">
                   <div className="card-body">
                     <h5 className="card-title">20</h5>
@@ -41,7 +41,7 @@ export const Dashboard = () => {
                 </div>
               </div>
 
-              <div className="col-sm-2 mb-2">
+              <div className="col-sm-2 mb-2" style={{ marginRight: "2%" }}>
                 <div className="card status">
                   <div className="card-body">
                     <h5 className="card-title">0</h5>

@@ -79,7 +79,7 @@ function Login() {
               E-mail ou senha inválida.
             </div>
           ) : null}
-          {sucesso === "S" && adminUserID === userID ? (
+          {sucesso === "S" && userID === "xlSBLZr64BODo1EkiD78aZQvQL72" ? (
             <Redirect to="/app/admin/home" />
           ) : null}
           {sucesso === "S" && userID !== adminUserID ? (

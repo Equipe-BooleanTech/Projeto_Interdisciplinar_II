@@ -25,7 +25,7 @@ const SubopcoesForm = ({ data, updateFieldHandler }) => {
           <div className="itens" key={index}>
             <h3 className="heading">{opcao}</h3>
             {opcao === "Bolos" && (
-              <div>
+              <div className="itens__list">
                 <div className="checkbox-container">
                   <input
                     type="checkbox"
@@ -71,7 +71,7 @@ const SubopcoesForm = ({ data, updateFieldHandler }) => {
               </div>
             )}
             {opcao === "Doces" && (
-              <div>
+              <div className="itens__list">
                 <div className="checkbox-container">
                   <input
                     type="checkbox"
@@ -261,7 +261,7 @@ const SubopcoesForm = ({ data, updateFieldHandler }) => {
               </div>
             )}
             {opcao === "Salgados" && (
-              <div>
+              <div className="itens__list">
                 <div className="checkbox-container">
                   <input
                     type="checkbox"
@@ -342,28 +342,10 @@ const SubopcoesForm = ({ data, updateFieldHandler }) => {
                     Risole
                   </label>
                 </div>
-                <div className="checkbox-container">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    name="coxinha"
-                    id="coxinha"
-                    checked={isCheckboxChecked("Coxinha")}
-                    onChange={() => updateFieldHandler("itens", "Coxinha")}
-                  />
-                  <label
-                    htmlFor="coxinha"
-                    className={
-                      isCheckboxChecked("Coxinha") ? "opcao checked" : "opcao"
-                    }
-                  >
-                    Coxinha
-                  </label>
-                </div>
               </div>
             )}
             {opcao === "Mini Lanches" && (
-              <div>
+              <div className="itens__list">
                 <div className="checkbox-container">
                   <input
                     type="checkbox"
@@ -475,7 +457,7 @@ const SubopcoesForm = ({ data, updateFieldHandler }) => {
               </div>
             )}
             {opcao === "Serviços de Buffet" && (
-              <div>
+              <div className="itens__list">
                 <div className="checkbox-container">
                   <input
                     type="checkbox"
