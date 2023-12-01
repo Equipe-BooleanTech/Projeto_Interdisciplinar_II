@@ -15,6 +15,9 @@ export default function GerenciarPedidos() {
   const [pedidosCancelados, setPedidosCancelados] = useState([]);
   const [pedidoSelecionado, setPedidoSelecionado] = useState(null);
   const [pedidoStatus, setPedidoStatus] = useState("Em Aberto");
+  const [orderBy, setOrderBy] = useState("numero");
+  const [orderDirection, setOrderDirection] = useState("asc");
+
   const [loading, setLoading] = useState(true);
 
   const history = useHistory();
@@ -190,8 +193,23 @@ export default function GerenciarPedidos() {
     fetchStatus();
   }, [pedidoSelecionado]);
 
-  const filterPedidos = (pedidos) => {
-    return pedidos.filter((pedido) => pedido.numero !== 0);
+  const filterPedidos = (pedidos, orderBy, orderDirection) => {
+    return pedidos
+      .filter((pedido) => pedido.numero !== 0)
+      .sort((a, b) => {
+        if (orderBy === "numero") {
+          return orderDirection === "asc"
+            ? a.numero - b.numero
+            : b.numero - a.numero;
+        } else if (orderBy === "cliente") {
+          const clienteA = a.cliente.toLowerCase();
+          const clienteB = b.cliente.toLowerCase();
+          return orderDirection === "asc"
+            ? clienteA.localeCompare(clienteB)
+            : clienteB.localeCompare(clienteA);
+        }
+        return 0;
+      });
   };
   return (
     <>
@@ -199,116 +217,173 @@ export default function GerenciarPedidos() {
       <h1 style={{ textAlign: "center", margin: "20px" }}>
         Gerenciamento de Pedidos
       </h1>
-      <div className="card__container">
-        {loading ? (
-          <div className="loading">
-            <SpinningCircles fill="#4C2B17" speed="0.75" />
+      {loading ? (
+        <div className="loading">
+          <SpinningCircles fill="#4C2B17" speed="0.75" />
+        </div>
+      ) : (
+        <>
+          <div style={{ marginBottom: "10px" }} className="orderby__container">
+            <label htmlFor="orderBy" className="text" style={{ color: "#000" }}>
+              Ordenar por:
+            </label>
+            <select
+              className="form-select"
+              id="orderBy"
+              style={{ width: "50%" }}
+              value={orderBy}
+              onChange={(e) => setOrderBy(e.target.value)}
+            >
+              <option value="numero">Número</option>
+              <option value="cliente">Cliente</option>
+            </select>
+
+            <label
+              htmlFor="orderDirection"
+              className="text"
+              style={{ color: "#000" }}
+            >
+              Direção:
+            </label>
+            <select
+              id="orderDirection"
+              className="form-select"
+              style={{ width: "50%" }}
+              value={orderDirection}
+              onChange={(e) => setOrderDirection(e.target.value)}
+            >
+              <option value="asc">Ascendente</option>
+              <option value="desc">Descendente</option>
+            </select>
           </div>
-        ) : (
-          <>
-            <Card className="column">
-              <Card.Header className="text heading">
-                Pedidos em Aberto
-              </Card.Header>
-              <Card.Body>
-                {pedidosEmAberto.map((pedido, index) => (
-                  <Card className="column__item" key={index}>
-                    <Card.Header>
-                      <button
-                        type="button"
-                        className="text column__item__text"
-                        onClick={() => {
-                          handleShowModal(pedido);
-                        }}
-                      >
-                        Pedido {pedido.numero} - {pedido.cliente}
-                      </button>
-                    </Card.Header>
-                  </Card>
-                ))}
-              </Card.Body>
-            </Card>
-            <Card className="column">
-              <Card.Header className="text heading">
-                Pedidos em Andamento
-              </Card.Header>
-              <Card.Body>
-                {pedidosEmAndamento.map((pedido, index) => (
-                  <Card className="column__item" key={index}>
-                    <Card.Header>
-                      <button
-                        type="button"
-                        className="text column__item__text"
-                        onClick={() => handleShowModal(pedido)}
-                      >
-                        Pedido {pedido.numero} - {pedido.cliente}
-                      </button>
-                    </Card.Header>
-                  </Card>
-                ))}
-              </Card.Body>
-            </Card>
-            <Card className="column">
-              <Card.Header className="text heading ">
-                Pedidos Concluídos
-              </Card.Header>
-              <Card.Body>
-                {filterPedidos(pedidosConcluidos).map((pedido, index) => (
-                  <Card className="column__item" key={index}>
-                    <Card.Header>
-                      <button
-                        type="button"
-                        className="text column__item__text"
-                        onClick={() => {
-                          handleShowModal(pedido);
-                        }}
-                      >
-                        Pedido {pedido.numero} - {pedido.cliente}
-                      </button>
-                    </Card.Header>
-                  </Card>
-                ))}
-              </Card.Body>
-            </Card>
-            <Card className="column">
-              <Card.Header className="text heading ">
-                Pedidos Cancelados
-              </Card.Header>
-              <Card.Body>
-                {filterPedidos(pedidosCancelados).map((pedido, index) => (
-                  <Card className="column__item" key={index}>
-                    <Card.Header>
-                      <button
-                        type="button"
-                        className="text column__item__text"
-                        onClick={() => {
-                          handleShowModal(pedido);
-                        }}
-                      >
-                        Pedido {pedido.numero} - {pedido.cliente}
-                      </button>
-                    </Card.Header>
-                  </Card>
-                ))}
-              </Card.Body>
-            </Card>
-          </>
-        )}
-      </div>
-      {pedidoSelecionado ? (
-        <ModalsAdmin
-          pedidoDetails={pedidoSelecionado}
-          cliente={pedidoSelecionado?.cliente}
-          avaliacao={pedidoSelecionado?.avaliacao}
-          itens={pedidoSelecionado?.itensQuantidades}
-          dataPedido={pedidoSelecionado?.dataPedido}
-          idPedido={pedidoSelecionado.idPedido}
-          status={pedidoStatus}
-          handleCancelarPedido={cancelarPedido}
-          onHide={handleHideModal}
-          changeStatus={updatePedidoStatus}
-        />
-      ) : null}
+          <div className="card__container">
+            {loading ? (
+              <div className="loading">
+                <SpinningCircles fill="#4C2B17" speed="0.75" />
+              </div>
+            ) : (
+              <>
+                <Card className="column">
+                  <Card.Header className="text heading">
+                    Pedidos em Aberto
+                  </Card.Header>
+                  <Card.Body>
+                    {filterPedidos(
+                      pedidosEmAberto,
+                      orderBy,
+                      orderDirection
+                    ).map((pedido, index) => (
+                      <Card className="column__item" key={index}>
+                        <Card.Header>
+                          <button
+                            type="button"
+                            className="text column__item__text"
+                            onClick={() => {
+                              handleShowModal(pedido);
+                            }}
+                          >
+                            Pedido {pedido.numero} - {pedido.cliente}
+                          </button>
+                        </Card.Header>
+                      </Card>
+                    ))}
+                  </Card.Body>
+                </Card>
+                <Card className="column">
+                  <Card.Header className="text heading">
+                    Pedidos em Andamento
+                  </Card.Header>
+                  <Card.Body>
+                    {filterPedidos(
+                      pedidosEmAndamento,
+                      orderBy,
+                      orderDirection
+                    ).map((pedido, index) => (
+                      <Card className="column__item" key={index}>
+                        <Card.Header>
+                          <button
+                            type="button"
+                            className="text column__item__text"
+                            onClick={() => handleShowModal(pedido)}
+                          >
+                            Pedido {pedido.numero} - {pedido.cliente}
+                          </button>
+                        </Card.Header>
+                      </Card>
+                    ))}
+                  </Card.Body>
+                </Card>
+                <Card className="column">
+                  <Card.Header className="text heading ">
+                    Pedidos Concluídos
+                  </Card.Header>
+                  <Card.Body>
+                    {filterPedidos(
+                      pedidosConcluidos,
+                      orderBy,
+                      orderDirection
+                    ).map((pedido, index) => (
+                      <Card className="column__item" key={index}>
+                        <Card.Header>
+                          <button
+                            type="button"
+                            className="text column__item__text"
+                            onClick={() => {
+                              handleShowModal(pedido);
+                            }}
+                          >
+                            Pedido {pedido.numero} - {pedido.cliente}
+                          </button>
+                        </Card.Header>
+                      </Card>
+                    ))}
+                  </Card.Body>
+                </Card>
+                <Card className="column">
+                  <Card.Header className="text heading ">
+                    Pedidos Cancelados
+                  </Card.Header>
+                  <Card.Body>
+                    {filterPedidos(
+                      pedidosCancelados,
+                      orderBy,
+                      orderDirection
+                    ).map((pedido, index) => (
+                      <Card className="column__item" key={index}>
+                        <Card.Header>
+                          <button
+                            type="button"
+                            className="text column__item__text"
+                            onClick={() => {
+                              handleShowModal(pedido);
+                            }}
+                          >
+                            Pedido {pedido.numero} - {pedido.cliente}
+                          </button>
+                        </Card.Header>
+                      </Card>
+                    ))}
+                  </Card.Body>
+                </Card>
+              </>
+            )}
+          </div>
+          {pedidoSelecionado ? (
+            <ModalsAdmin
+              pedidoDetails={pedidoSelecionado}
+              cliente={pedidoSelecionado?.cliente}
+              avaliacao={pedidoSelecionado?.avaliacao}
+              itens={pedidoSelecionado?.itensQuantidades}
+              dataPedido={pedidoSelecionado?.dataPedido}
+              idPedido={pedidoSelecionado.idPedido}
+              status={pedidoStatus}
+              handleCancelarPedido={cancelarPedido}
+              onHide={handleHideModal}
+              changeStatus={updatePedidoStatus}
+            />
+          ) : null}
+        </>
+      )}
     </>
   );
 }

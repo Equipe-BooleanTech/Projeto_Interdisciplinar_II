@@ -41,7 +41,9 @@ export default function AcompanharPedido() {
     }
   };
   const filterPedidos = (pedidos) => {
-    return pedidos.filter((pedido) => pedido.numero !== 0);
+    return pedidos
+      .filter((pedido) => pedido.numero !== 0)
+      .sort((a, b) => a.numero - b.numero);
   };
 
   useEffect(() => {
@@ -178,7 +180,7 @@ export default function AcompanharPedido() {
                 Pedidos Cancelados
               </Card.Header>
               <Card.Body>
-                {pedidosCancelados.map((pedido, index) => (
+                {filterPedidos(pedidosCancelados).map((pedido, index) => (
                   <Card className="column__item" key={index}>
                     <Card.Header>
                       <button

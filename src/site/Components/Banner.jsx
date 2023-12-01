@@ -16,7 +16,9 @@ function Banner() {
               {" "}
               Um novo conceito de festas para realizar seu sonho!
             </h1>
-            <h4 className="text">Entre em contato para maiores informações.</h4>
+            <h4 className="text" style={{ color: "#000" }}>
+              Entre em contato para maiores informações.
+            </h4>
             <div className="button__div">
               {logado && userType === "cliente" ? (
                 <SecureRoute allowedUserType="cliente" to="/app/meu-perfil">
