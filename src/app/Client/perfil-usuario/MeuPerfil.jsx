@@ -4,25 +4,13 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import { AuthContext } from "../../Auth/Context/auth";
 import "./styles.css";
+import { Link } from "react-router-dom";
 
 function MeuPerfil() {
   const [userName, setUserName] = useState("");
   const [pedidos, setPedidos] = useState([]);
   const { userID, logado, userType } = useContext(AuthContext);
-
-  const getStatusDoPedido = (pedido) => {
-    if (pedido.emAberto) {
-      return "Em aberto";
-    } else if (pedido.emAndamento) {
-      return "Em andamento";
-    } else if (pedido.concluido) {
-      return "Concluído";
-    } else if (pedido.cancelado) {
-      return "Cancelado";
-    } else {
-      return null;
-    }
-  };
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     async function LoadUserName() {
@@ -44,7 +32,7 @@ function MeuPerfil() {
 
     async function LoadPedidos() {
       try {
-        if (logado && userType === "cliente") {
+        if (logado && userType === "cliente" && userID) {
           const db = firebase.firestore();
           const usuariosRef = db.collection("usuarios");
           const userRef = usuariosRef.doc(userID);
@@ -56,11 +44,13 @@ function MeuPerfil() {
             .get();
           const pedidosData = querySnapshot.docs.map((doc) => {
             const data = doc.data();
+
             return {
               id: doc.id,
               ...data,
+
               dataPedido:
-                data.dataPedido && data.dataPedido.toDate
+                data && data.dataPedido && data.dataPedido.toDate
                   ? data.dataPedido.toDate().toLocaleString()
                   : null,
             };
@@ -78,11 +68,57 @@ function MeuPerfil() {
     LoadUserName();
     LoadPedidos();
   }, [userID, logado, userType]);
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
+  function renderItensQuantidades(itensQuantidades) {
+    if (itensQuantidades && itensQuantidades.length > 0) {
+      return itensQuantidades.map((item, index) => <p key={index}>{item}</p>);
+    } else {
+      return <p></p>;
+    }
+  }
   return (
     <>
       <Navbar />
-      <h1 className="welcome-heading">Bem-vindo(a), {userName}!</h1>
+
+      <div className="dashboard">
+        <div className={`custom-dropdown ${isDropdownOpen ? "open" : ""}`}>
+          <div className="dropdown-title" onClick={toggleDropdown}>
+            Bem-vindo(a), {userName}!
+            <span className={`arrow ${isDropdownOpen ? "up" : "down"}`}></span>
+          </div>
+          <ul className="dropdown-menu">
+            <li>
+              <Link to="/app/alterar-dados" className="dropdown-item">
+                Alterar minhas informações
+              </Link>
+            </li>
+            <li>
+              <Link to="/app/alterar-senha" className="dropdown-item">
+                Alterar minha senha
+              </Link>
+            </li>
+            <li>
+              <Link to="/app/avaliar-pedidos" className="dropdown-item">
+                Avalie seus pedidos!
+              </Link>
+            </li>
+            <li>
+              <Link to="/app/novo-pedido" className="dropdown-item">
+                Peça aqui nossos deliciosos produtos!
+              </Link>
+            </li>
+            <li>
+              <Link to="/app/acompanhar-pedidos" className="dropdown-item">
+                Acompanhe seus pedidos!
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <p className="welcome-message">Confira os seus pedidos já realizados!</p>
       <div className="dashboard">
         <section id="pedidos" className="ultimosPedidos">
@@ -93,7 +129,7 @@ function MeuPerfil() {
               <tr>
                 <th>Número do Pedido</th>
                 <th>Data do Pedido</th>
-                <th>Status do Pedido</th>
+                <th>Itens do Pedido</th>
               </tr>
             </thead>
             <tbody>
@@ -101,7 +137,7 @@ function MeuPerfil() {
                 <tr key={pedido.id}>
                   <td>{pedido.numero}</td>
                   <td>{pedido.dataPedido}</td>
-                  <td>{getStatusDoPedido(pedido)}</td>
+                  <td>{renderItensQuantidades(pedido.itensQuantidades)}</td>
                 </tr>
               ))}
             </tbody>

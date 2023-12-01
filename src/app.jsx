@@ -18,6 +18,8 @@ import Ajuda from "./app/Ajuda/Ajuda.jsx";
 import AcompanharPedido from "./app/Client/AcompanharPedido/AcompanharPedido.jsx";
 import PedidoForm from "./app/Client/PedidoForm/PedidoForm.jsx";
 import PedidoFormAdmin from "./app/Admin/PedidoForm/PedidoFormAdmin.jsx";
+import AlterarDados from "./app/Client/AlterarDados/AlterarDados.jsx";
+import AlterarSenha from "./app/Client/AlterarSenha/AlterarSenha.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -27,7 +29,8 @@ function App() {
         <Route exact path="/app/novaconta" component={NovaConta} />
         <Route exact path="/app/resetsenha" component={ResetSenha} />
         <Route exact path="/app/ajuda" component={Ajuda} />
-
+        <Route exact path="/app/alterar-dados" component={AlterarDados} />
+        <Route exact path="/app/alterar-senha" component={AlterarSenha} />
         <SecureRoute
           exact
           path="/app/admin/home"

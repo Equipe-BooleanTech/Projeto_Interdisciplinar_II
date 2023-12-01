@@ -81,7 +81,7 @@ function AlterarDados() {
       <br />
       <br />
       <div className="d-flex align-items-center text-center form-container">
-        <form className="form-signin" style={{ marginTop: 7.5 + "rem" }}>
+        <form className="form-signin">
           <h1 className="h3 mb-3 fw-normal">Atualize seus Dados</h1>
 
           <div className="form-floating">

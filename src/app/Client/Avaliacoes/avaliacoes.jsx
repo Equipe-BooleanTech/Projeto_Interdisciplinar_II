@@ -122,11 +122,11 @@ function Avaliacoes() {
             <div className="col-sm-12 text-center">
               <p>Não há avaliações pendentes no momento.</p>
               <p>Que tal fazer uma nova compra?</p>
-              <p>
-                <a href="/app/novo-pedido" className="btn btn-primary">
+              <button className="submit">
+                <a href="/app/novo-pedido" className="text">
                   Ir para a página de compras
                 </a>
-              </p>
+              </button>
             </div>
           )}
         </div>

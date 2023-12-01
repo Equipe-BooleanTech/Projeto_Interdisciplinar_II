@@ -46,20 +46,26 @@ const AlterarSenha = () => {
       <div className="d-flex align-items-center text-center form-container">
         <form className="form-signin" style={{ marginTop: 7.5 + "rem" }}>
           <h1 className="h3 mb-3 fw-normal">Aterar Senha</h1>
-          <input
-            type="password"
-            placeholder="Senha Atual"
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Nova Senha"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-          />
+          <p>Deseja alterar sua senha? Digite sua senha atual e atualize-a.</p>
+          <div className="form-floating">
+            <input
+              type="password"
+              placeholder="Senha Atual"
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-floating">
+            <input
+              type="password"
+              placeholder="Nova Senha"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              required
+            />
+          </div>
+
           <button
             onClick={handleChangePassword}
             className="w-100 btn btn-lg btn-primary submit"
