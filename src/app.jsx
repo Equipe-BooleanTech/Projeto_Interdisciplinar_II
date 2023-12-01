@@ -13,7 +13,7 @@ import EditarCliente from "./app/Admin/CRUD/EditarCliente/editarcliente.jsx";
 import MeuPerfil from "./app/Client/perfil-usuario/MeuPerfil.jsx";
 import { Dashboard } from "./app/Admin/Dashboard/Dashboard.jsx";
 import GerenciarPedidos from "./app/Admin/GerenciarPedidos/GerenciarPedidos.jsx";
-import Avaliacao from "./app/Client/Avaliacoes/Avaliacao.jsx";
+import Avaliacoes from "./app/Client/Avaliacoes/avaliacoes.jsx";
 import Ajuda from "./app/Ajuda/Ajuda.jsx";
 import AcompanharPedido from "./app/Client/AcompanharPedido/AcompanharPedido.jsx";
 import PedidoForm from "./app/Client/PedidoForm/PedidoForm.jsx";
@@ -81,7 +81,7 @@ function App() {
         <SecureRoute
           exact
           path="/app/avaliar-pedidos"
-          component={Avaliacao}
+          component={Avaliacoes}
           allowedUserType="cliente"
         />
         <SecureRoute

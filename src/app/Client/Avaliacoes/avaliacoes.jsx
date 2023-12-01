@@ -66,7 +66,6 @@ function Avaliacoes() {
 
   const hideSuccessAlert = () => {
     setShowAlert(false);
-    // Redirecione para a home após o alerta ser fechado
     history.push("/");
   };
 
@@ -92,79 +91,89 @@ function Avaliacoes() {
     }
   };
 
+  const pedidosFiltrados = pedidos.filter((pedido) => pedido.numero !== 0);
+
   return (
     <>
       <Navbar />
-      <div className="Row">
-        <h1 className="text-center">Avalie Seus Pedidos</h1>
-      </div>
-      <div className="Row">
-        {pedidos.length > 0 ? (
-          <div className="col-sm-3 m mx-auto p-2">
-            <select
-              className="form-select"
-              aria-label="Default select example"
-              value={avaliacaoSelecionada}
-              onChange={handleAvaliacaoChange}
-            >
-              <option value="">Escolha um pedido</option>
-              {pedidos.map((pedido) => (
-                <option key={pedido.id} value={pedido.id}>
-                  {pedido.id}
-                </option>
-              ))}
-            </select>
-          </div>
-        ) : (
-          <div className="col-sm-12 text-center">
-            <p>Não há avaliações pendentes no momento.</p>
-            <p>Que tal fazer uma nova compra?</p>
-            <p>
-              <a href="/app/novo-pedido" className="btn btn-primary">
-                Ir para a página de compras
-              </a>
-            </p>
+      <div className="container-formulario">
+        <div className="Row">
+          <h1 className="text-center">Avalie Seus Pedidos</h1>
+          <p className="text-center">Sua opinião é essencial para nós!</p>
+        </div>
+        <div className="Row">
+          {pedidosFiltrados.length > 0 ? (
+            <div className="col-sm-3 m mx-auto p-2">
+              <select
+                className="form-select"
+                aria-label="Default select example"
+                value={avaliacaoSelecionada}
+                onChange={handleAvaliacaoChange}
+              >
+                <option value="">Escolha um pedido</option>
+                {pedidos.map((pedido) => (
+                  <option key={pedido.id} value={pedido.id}>
+                    {pedido.numero}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : (
+            <div className="col-sm-12 text-center">
+              <p>Não há avaliações pendentes no momento.</p>
+              <p>Que tal fazer uma nova compra?</p>
+              <p>
+                <a href="/app/novo-pedido" className="btn btn-primary">
+                  Ir para a página de compras
+                </a>
+              </p>
+            </div>
+          )}
+        </div>
+        {pedidoSelecionado && (
+          <div className="row">
+            <div className="col-sm-6 m mx-auto p-2">
+              <div className="mb-3">
+                <h2>Detalhes do Pedido</h2>
+                <label htmlFor="avaliacao" className="form-label">
+                  Descrição:
+                  <br />
+                  {pedidoSelecionado.itensQuantidades.map((key, item) => (
+                    <p key={key}>{key}</p>
+                  ))}
+                </label>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="avaliacao" className="form-label">
+                  Avaliação:
+                </label>
+                <textarea
+                  onChange={(e) => setAvaliacao(e.target.value)}
+                  value={avaliacao}
+                  className="form-control textarea"
+                  id="avaliacao"
+                  rows="4"
+                />
+                <button
+                  onClick={atualizarPedido}
+                  className="btn btn-primary submit"
+                >
+                  Enviar Avaliação
+                </button>
+              </div>
+            </div>
           </div>
         )}
-      </div>
-      {pedidoSelecionado && (
-        <div className="row">
-          <div className="col-sm-6 m mx-auto p-2">
-            <div className="mb-3">
-              <h2>Detalhes do Pedido</h2>
-              <label htmlFor="avaliacao" className="form-label">
-                Descrição:
-                <br />
-                {pedidoSelecionado.itens}
-              </label>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="avaliacao" className="form-label">
-                Avaliação:
-              </label>
-              <textarea
-                onChange={(e) => setAvaliacao(e.target.value)}
-                value={avaliacao}
-                className="form-control"
-                id="avaliacao"
-                rows="4"
-              />
-              <button onClick={atualizarPedido} className="btn btn-primary">
-                Enviar Avaliação
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
-      {/* SweetAlert para sucesso */}
-      {showAlert && (
-        <SweetAlert success title="Sucesso!" onConfirm={hideSuccessAlert}>
-          Avaliação enviada com sucesso!!! Agradecemos muito por sua mensagem.
-          Sua opinião é extremamente valiosa para nós, e estamos contentes por
-          ter compartilhado seus pensamentos conosco.
-        </SweetAlert>
-      )}
+        {/* SweetAlert para sucesso */}
+        {showAlert && (
+          <SweetAlert success title="Sucesso!" onConfirm={hideSuccessAlert}>
+            Avaliação enviada com sucesso! Agradecemos muito por sua mensagem.
+            Sua opinião é extremamente valiosa para nós, e estamos contentes por
+            ter compartilhado seus pensamentos conosco.
+          </SweetAlert>
+        )}
+      </div>
     </>
   );
 }

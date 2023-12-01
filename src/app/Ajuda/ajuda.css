@@ -50,9 +50,10 @@ main {
 }
 
 
-@media (max-width: 500px){
+@media (max-width: 768px){
     main {
         margin: 0;
+        width: 100%;
     }
 
     .ajuda__button {

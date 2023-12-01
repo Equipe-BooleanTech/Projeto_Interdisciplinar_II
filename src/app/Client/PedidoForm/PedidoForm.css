@@ -97,6 +97,7 @@
 
 .textarea {
     height: 120px;
+    resize: none;
 }
 
 .actions {
