@@ -91,7 +91,9 @@ function Avaliacoes() {
     }
   };
 
-  const pedidosFiltrados = pedidos.filter((pedido) => pedido.numero !== 0);
+  const pedidosFiltrados = pedidos
+    .filter((pedido) => pedido.numero !== 0)
+    .sort((a, b) => a.numero - b.numero);
 
   return (
     <>
@@ -111,7 +113,7 @@ function Avaliacoes() {
                 onChange={handleAvaliacaoChange}
               >
                 <option value="">Escolha um pedido</option>
-                {pedidos.map((pedido) => (
+                {pedidosFiltrados.map((pedido) => (
                   <option key={pedido.id} value={pedido.id}>
                     {pedido.numero}
                   </option>

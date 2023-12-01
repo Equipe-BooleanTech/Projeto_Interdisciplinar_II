@@ -34,7 +34,7 @@ const Modals = ({
 
   const formatarData = (dataPedido) => {
     const data = dataPedido?.toDate();
-    return data?.toLocaleString();
+    return data?.toLocaleString("en-GB");
   };
 
   return (

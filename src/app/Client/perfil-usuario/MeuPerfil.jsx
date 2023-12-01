@@ -12,6 +12,19 @@ function MeuPerfil() {
   const { userID, logado, userType } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const getStatusDoPedido = (pedido) => {
+    if (pedido.emAberto) {
+      return "Em aberto";
+    } else if (pedido.emAndamento) {
+      return "Em andamento";
+    } else if (pedido.concluido) {
+      return "Concluído";
+    } else if (pedido.cancelado) {
+      return "Cancelado";
+    } else {
+      return null;
+    }
+  };
   useEffect(() => {
     async function LoadUserName() {
       try {
@@ -128,7 +141,7 @@ function MeuPerfil() {
             <thead>
               <tr>
                 <th>Número do Pedido</th>
-                <th>Data do Pedido</th>
+                <th>Status do Pedido</th>
                 <th>Itens do Pedido</th>
               </tr>
             </thead>
@@ -136,7 +149,7 @@ function MeuPerfil() {
               {pedidos.map((pedido) => (
                 <tr key={pedido.id}>
                   <td>{pedido.numero}</td>
-                  <td>{pedido.dataPedido}</td>
+                  <td>{getStatusDoPedido(pedido)}</td>
                   <td>{renderItensQuantidades(pedido.itensQuantidades)}</td>
                 </tr>
               ))}
