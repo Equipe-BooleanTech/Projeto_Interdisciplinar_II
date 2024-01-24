@@ -4,7 +4,7 @@ import "./novaconta.css";
 import firebase from "../../Config/firebase";
 import { deleteDoc } from "firebase/firestore";
 import "firebase/auth";
-import { Menu } from "../../../site/Components/menu";
+import { Menu } from "../../../home/Components/menu";
 import { generatePedidoNumber } from "../../Utils/UtilFunctions";
 import bcrypt from "bcryptjs";
 

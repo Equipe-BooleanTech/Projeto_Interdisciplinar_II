@@ -4,7 +4,7 @@ import "./login.css";
 import { AuthContext } from "../../Auth/Context/auth";
 import firebase from "../../Config/firebase";
 import "firebase/auth";
-import { Menu } from "../../../site/Components/menu";
+import { Menu } from "../../../home/Components/menu";
 
 function Login() {
   const [email, setEmail] = useState("");

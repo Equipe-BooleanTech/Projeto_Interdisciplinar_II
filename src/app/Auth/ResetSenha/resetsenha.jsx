@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./resetsenha.css";
-import { Menu } from "../../../site/Components/menu";
+import { Menu } from "../../../home/Components/menu";
 
 import firebase from "../../Config/firebase";
 import "firebase/auth";

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { SecureRoute } from "./app/Components/SecureRoute/SecureRoute.jsx";
 
 /* Paginas */
-import Site from "./site/site.jsx";
+import Site from "./home/site.jsx";
 import Login from "./app/Auth/Login/login";
 import NovaConta from "./app/Auth/NovaConta/novaconta.jsx";
 import ResetSenha from "./app/Auth/ResetSenha/resetsenha";
